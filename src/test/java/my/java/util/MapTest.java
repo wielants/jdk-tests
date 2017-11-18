@@ -3,7 +3,6 @@ package my.java.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class MapTest {
 	public void createdMapIsEmpty() {
 		assertTrue(map.isEmpty());
 	}
-
+	
 	@Test
 	public void addedMapIsNotEMpty() {
 		map.put("key", "value");
@@ -64,19 +63,5 @@ public class MapTest {
 		map.clear();
 
 		assertTrue(map.isEmpty());
-	}
-
-	//FIXME: move into separate test class!
-	@Test
-	public void addNullIsAllowed() {
-		if (map instanceof TreeMap) {
-			try {
-				map.put(null, "null-value");
-				fail();
-			} catch (NullPointerException e) {
-			}
-		} else {
-			map.put(null, "null-value");
-		}
 	}
 }

@@ -39,11 +39,10 @@ public class FileTest {
 	}
 
 	@Test
-	public void rootIsADirectoryAndNotAFile() {
+	public void rootIsADirectory() {
 		File root = new File("/");
 
 		assertTrue(root.isDirectory());
-		assertFalse(root.isFile());
 	}
 
 	@Test
@@ -65,26 +64,57 @@ public class FileTest {
 	}
 
 	@Test
-	public void test() {
-		File directory = new File("dir/", "/");
+	public void aNotExistingDirectoryIsNotADirectory() {
+		File notExistingDirectory = new File("/", "notExistingDirectory");
 
-		assertFalse(directory.exists());
-		assertTrue(directory.isDirectory());
-		assertThat(directory.getName(), Matchers.is("dir/"));
+		assertFalse(notExistingDirectory.exists());
+		assertFalse(notExistingDirectory.isDirectory());
 	}
 
-	//FIXME: Wie mache ich den Test "schöner"?
 	@Test
-	public void createAndDeleteFile() throws IOException {
+	public void anExistingDirectoryIsADirectory() {
+		File existingDirectory = new File("/", "etc");
+
+		assertTrue(existingDirectory.exists());
+		assertTrue(existingDirectory.isDirectory());
+	}
+	
+	@Test
+	public void theNameOfAFileHasNoSlash() {
+		File existingFile = new File("/etc/passwd");
+		
+		assertThat(existingFile.getName(), Matchers.is("passwd"));
+	}
+
+	@Test
+	public void theAbsoluteFilenameInJavaDoesNotRemoveInnerRelativeParts() {
+		String pathWithInnerRelativeParts = "/etc/../etc/../etc/passwd";
+		File existingFile = new File(pathWithInnerRelativeParts);
+		
+		assertThat(existingFile.getAbsolutePath(), Matchers.is(pathWithInnerRelativeParts));
+	}
+
+	@Test
+	public void theCanonicalFilenameDoesRemoveInnerRelativeParts() throws IOException {
+		String pathWithInnerRelativeParts = "/etc/../etc/../etc/passwd";
+		File existingFile = new File(pathWithInnerRelativeParts);
+		
+		assertThat(existingFile.getCanonicalPath(), Matchers.is("/etc/passwd"));
+	}
+	
+	@Test
+	public void createdNewFileOnDiskExistsAndCanBeDeleted() throws IOException {
 		File newFile = new File("test");
 
 		boolean createdFile = newFile.createNewFile();
+
 		assertTrue(createdFile);
-
-		boolean fileExists = newFile.exists();
-		assertTrue(fileExists);
-
-		boolean deleted = newFile.delete();
-		assertTrue(deleted);
+		
+		try {
+		   assertTrue(newFile.exists());
+		   assertTrue(newFile.delete());
+		} finally {
+			newFile.delete();
+		}
 	}
 }

@@ -14,105 +14,94 @@ import java.util.Set;
 import org.junit.Test;
 
 public class HashSetTest {
+	
+	private Set<String> set = new HashSet<>();
+	
 	@Test
 	public void addItemAddsItem() {
-		Set<String> hs = new HashSet<String>();
-
-		boolean hasBeenAdded = hs.add("hello");
+		boolean hasBeenAdded = set.add("hello");
 
 		assertThat(hasBeenAdded, is(true));
-		assertThat(hs, contains("hello"));
+		assertThat(set, contains("hello"));
 	}
 
 	@Test
 	public void addItemTwiceDoesNothing() {
-		Set<String> hs = new HashSet<String>();
-
-		hs.add("hello");
-		boolean hasBeenAdded = hs.add("hello");
+		set.add("hello");
+		boolean hasBeenAdded = set.add("hello");
 
 		assertThat(hasBeenAdded, is(false));
-		assertThat(hs, contains("hello"));
+		assertThat(set, contains("hello"));
 	}
 
 	@Test
 	public void addNullAddsNullAsItem() {
-		Set<String> hs = new HashSet<String>();
-
-		boolean hasBeenAdded = hs.add(null);
+		boolean hasBeenAdded = set.add(null);
 
 		assertThat(hasBeenAdded, is(true));
-		assertThat(hs, contains((String) null));
+		assertThat(set, contains((String) null));
 	}
 
 	@Test
 	public void addNullTwiceDoesNothing() {
-		Set<String> hs = new HashSet<String>();
-
-		hs.add(null);
-		boolean hasBeenAdded = hs.add(null);
+		set.add(null);
+		boolean hasBeenAdded = set.add(null);
 
 		assertThat(hasBeenAdded, is(false));
-		assertThat(hs, contains((String) null));
+		assertThat(set, contains((String) null));
 	}
 
 	@Test
 	public void removeExistingItemRemovesItem() {
-		Set<String> hs = new HashSet<String>();
-		hs.add("hello");
+		set.add("hello");
 
-		boolean hasBeenRemoved = hs.remove("hello");
+		boolean hasBeenRemoved = set.remove("hello");
 
 		assertThat(hasBeenRemoved, is(true));
-		assertThat(hs, hasSize(0));
+		assertThat(set, hasSize(0));
 	}
 
 	@Test
 	public void removeNonExistingItemDoesNothing() {
-		Set<String> hs = new HashSet<String>();
-		hs.add("hello");
+		set.add("hello");
 
-		boolean hasBeenRemoved = hs.remove("world");
+		boolean hasBeenRemoved = set.remove("world");
 
 		assertThat(hasBeenRemoved, is(false));
-		assertThat(hs, contains("hello"));
+		assertThat(set, contains("hello"));
 	}
 
 	@Test
 	public void retainItemsOnlyRetainsGivenItems() {
-		Set<String> hs = new HashSet<String>();
-		hs.addAll(Arrays.asList("hello", "world"));
+		set.addAll(Arrays.asList("hello", "world"));
 
-		hs.retainAll(Arrays.asList("hello"));
+		set.retainAll(Arrays.asList("hello"));
 
-		assertThat(hs, contains("hello"));
+		assertThat(set, contains("hello"));
 	}
 
 	@Test
 	public void removeItemsRemovesItemsFromSet() {
-		Set<String> hs = new HashSet<String>();
-		hs.addAll(Arrays.asList("hello", "world", "foo", "bar"));
+		set.addAll(Arrays.asList("hello", "world", "foo", "bar"));
 
-		hs.removeAll(Arrays.asList("hello", "foo"));
+		set.removeAll(Arrays.asList("hello", "foo"));
 
-		assertThat(hs, containsInAnyOrder("world", "bar"));
+		assertThat(set, containsInAnyOrder("world", "bar"));
 	}
 
 
 	@Test
 	public void clearSetRemovesAllItems() {
-		Set<String> hs = new HashSet<String>();
-		hs.addAll(Arrays.asList("hello", "world"));
-		hs.clear();
+		set.addAll(Arrays.asList("hello", "world"));
+		set.clear();
 
-		assertThat(hs, empty());
+		assertThat(set, empty());
 	}
 
 	@Test
 	public void containsAllChecksIfSetContainsAllGivenItems() {
-		Set<String> hs = new HashSet<String>();
-		hs.addAll(Arrays.asList("hello", "world"));
-		boolean containsAllItems = hs.containsAll(Arrays.asList("hello", "world"));
+		set.addAll(Arrays.asList("hello", "world"));
+		boolean containsAllItems = set.containsAll(Arrays.asList("hello", "world"));
 
 		assertThat(containsAllItems, is(true));
 	}
