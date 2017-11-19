@@ -39,7 +39,7 @@ public class OptionalTest {
 	}
 
 	@Test
-	public void mappingAnOptionalWithPresetValueReturnsAnOptionalWithPresentValue() {
+	public void mappingAnOptionalWithPresetValueBecomesModifiedReturnsAnOptionalWithPresentValue() {
 		Optional<String> optional = Optional.of("hello");
 
 		Optional<Object> result = optional.map(s -> s + " world");
@@ -48,7 +48,7 @@ public class OptionalTest {
 	}
 
 	@Test
-	public void mappingAnOptionalWithPresetValueReturnsEmptyOptional() {
+	public void mappingAnOptionalWithPresetValueBecomesNullReturnsEmptyOptional() {
 		Optional<String> optional = Optional.of("hello");
 
 		Optional<Object> result = optional.map(s -> null);

@@ -26,7 +26,7 @@ public class HashSetTest {
 	}
 
 	@Test
-	public void addItemTwiceDoesNothing() {
+	public void addSameItemTwiceDoesNothing() {
 		set.add("hello");
 		boolean hasBeenAdded = set.add("hello");
 

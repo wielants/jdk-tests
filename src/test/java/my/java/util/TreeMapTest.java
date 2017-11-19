@@ -16,7 +16,7 @@ public class TreeMapTest {
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void createdMapContainsKeyThrowsNPE() {
+	public void containsKeyWithNullThrowsNPE() {
 		assertFalse(map.containsKey(null));
 	}
 }

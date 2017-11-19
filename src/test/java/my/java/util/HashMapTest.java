@@ -21,7 +21,7 @@ public class HashMapTest {
 	}
 	
 	@Test
-	public void createdMapContainsNoNullKey() {
+	public void containsKeyWithNullOnNewMapReturnsFalse() {
 		assertFalse(map.containsKey(null));
 	}
 }
